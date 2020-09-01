@@ -1,0 +1,6 @@
+{
+    "env":{
+        "MONGO_ATLAS_PW":"psUzw3twSLhiRcVp",
+        "JWT_KEY": "arqsi"
+    }
+}

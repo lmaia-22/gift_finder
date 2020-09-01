@@ -1,0 +1,251 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Request",
+    "description" : "Request service",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/psidi-system/Request/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/psidi-system/Catalog/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "Client",
+    "description" : "User of the system"
+  } ],
+  "paths" : {
+    "/request" : {
+      "post" : {
+        "tags" : [ "Client" ],
+        "summary" : "Creates a new request",
+        "description" : "Adds a new request to the system",
+        "requestBody" : {
+          "description" : "Request to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Request"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "request created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing request already exists"
+          }
+        }
+      }
+    },
+    "/request/{user_id}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "get all requests by user id",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/request/{user_id}{request_id}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "get a specific request by user id",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up requests",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up requests",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/request/{user_id}{date}{product_id}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "get all requests by user id, date or product_id",
+        "description" : "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up requests",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "date",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up requests",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "product_id",
+          "in" : "path",
+          "description" : "pass an optional search string for looking up requests",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Request" : {
+        "required" : [ "product_id", "user_id" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "user_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "code" : {
+            "type" : "string",
+            "example" : "RE122ADH12HJ31"
+          },
+          "date" : {
+            "type" : "string",
+            "example" : "22-01-2019"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "sent"
+          },
+          "product" : {
+            "$ref" : "#/components/schemas/Product"
+          }
+        }
+      },
+      "Product" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Printer"
+          },
+          "brand" : {
+            "type" : "string",
+            "example" : "Staples"
+          },
+          "price" : {
+            "type" : "integer",
+            "example" : 10
+          }
+        }
+      }
+    }
+  }
+}

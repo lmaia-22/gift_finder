@@ -1,0 +1,357 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "User API",
+    "description" : "API to authenticate user",
+    "contact" : {
+      "email" : "you@your-company.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/psidi-system/User/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/psidi-system/Authentication/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "tags" : [ {
+    "name" : "Customer",
+    "description" : "New potencial client"
+  }, {
+    "name" : "Client",
+    "description" : "Registered Client"
+  } ],
+  "paths" : {
+    "/user/register" : {
+      "post" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Creates a new Client",
+        "description" : "Adds an user to the system",
+        "requestBody" : {
+          "description" : "User to add",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "User created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an user already exists"
+          }
+        }
+      }
+    },
+    "/user/login" : {
+      "post" : {
+        "tags" : [ "Client" ],
+        "summary" : "Client logins",
+        "description" : "A user logins in the system",
+        "requestBody" : {
+          "description" : "Login",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "description" : "User succesfull login"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "The user doesn't exists"
+          }
+        }
+      }
+    },
+    "/user/profile/{user_id}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "Checks client profile",
+        "description" : "A user checks its profile in the system",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/user/profile/{user_id}/request/{date}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "Checks client purchases requests history",
+        "description" : "Client sees his purchase requests history in the system",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "date",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/user/profile/{user_id}/request/{request_id}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "Checks client specific request",
+        "description" : "Client sees his purchase history in the system",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/user/profile/{user_id}/request/{request_id}/funny/{date}" : {
+      "get" : {
+        "tags" : [ "Client" ],
+        "summary" : "Shows request funny quote based on date",
+        "description" : "Client sees funny quote",
+        "parameters" : [ {
+          "name" : "user_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "request_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "date",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Request"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "User" : {
+        "required" : [ "email", "password" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Widget Adapter"
+          },
+          "email" : {
+            "type" : "string",
+            "format" : "string",
+            "example" : "widget@gmail.com"
+          },
+          "password" : {
+            "type" : "string",
+            "format" : "password",
+            "example" : "psw_123"
+          },
+          "role" : {
+            "type" : "string",
+            "example" : "client"
+          }
+        }
+      },
+      "Request" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "user_id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "code" : {
+            "type" : "string",
+            "example" : "RE122ADH12HJ31"
+          },
+          "date" : {
+            "type" : "string",
+            "example" : "22-01-2019"
+          },
+          "status" : {
+            "type" : "string",
+            "example" : "sent"
+          },
+          "product" : {
+            "$ref" : "#/components/schemas/Product"
+          }
+        }
+      },
+      "Product" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "uuid",
+            "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "Printer"
+          },
+          "brand" : {
+            "type" : "string",
+            "example" : "Staples"
+          },
+          "barcode" : {
+            "type" : "integer",
+            "example" : 1828181289
+          },
+          "productImage" : {
+            "type" : "string",
+            "example" : "/image/1/image.png"
+          },
+          "price" : {
+            "type" : "integer",
+            "example" : 10
+          }
+        }
+      }
+    }
+  }
+}
