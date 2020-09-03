@@ -1,16 +1,3 @@
-const Rules = {
-    admin: 0,
-    client: 1
-}
-
-const ActionsDefault = {
-    NewOrder: 1,
-    ViewOrder: 1,
-    EditOrder: 0,
-    EditClientAdmin: 0,
-    EditClient: 1
-}
-
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
