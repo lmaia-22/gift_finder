@@ -48,7 +48,7 @@ exports.age_all = async (req, res) =>{
 exports.age_delete = async (req, res) => {
     try{
       let delete_age_option = await age_service.delete(req.params.ageID);
-      if("error" in delete_option){
+      if("error" in delete_age_option){
         res.status(delete_age_option['status']).json(delete_age_option);
       }else{
         res.status(200).json(delete_age_option);
