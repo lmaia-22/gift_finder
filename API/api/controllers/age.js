@@ -61,7 +61,7 @@ exports.age_delete = async (req, res) => {
 //update age option
 exports.age_update = async (req, res) => {
     try{
-      let update_age  = await age_service.update(req.params.userID, req.body);
+      let update_age  = await age_service.update(req.params.ageID, req.body);
       if("error" in update_age){
         res.status(update_age['status']).json(update_age);
       }else{

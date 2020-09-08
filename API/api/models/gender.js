@@ -5,4 +5,4 @@ const genderSchema = mongoose.Schema({
     name: { type: String, required: true },
 });
 
-module.exports = mongoose.model('Age', ageSchema);
+module.exports = mongoose.model('Gender', genderSchema);

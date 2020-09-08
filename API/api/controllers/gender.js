@@ -61,7 +61,7 @@ exports.gender_delete = async (req, res) => {
 //update a gender option
 exports.age_update = async (req, res) => {
     try{
-      let update_gender  = await gender_service.update(req.params.userID, req.body);
+      let update_gender  = await gender_service.update(req.params.genderID, req.body);
       if("error" in update_gender){
         res.status(update_gender['status']).json(update_gender);
       }else{
