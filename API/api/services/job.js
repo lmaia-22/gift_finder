@@ -2,20 +2,25 @@ const mongoose = require("mongoose");
 
 var Job = require("../models/job");
 
-//new Gender filter
-exports.new = (gender_details) => {
+//new Job filter
+exports.new = (job_details) => {
     return new Promise((resolve,reject) =>{
-              const gender = new Gender({
+              const job = new Job({
                 _id: new mongoose.Types.ObjectId(),
-                name: gender_details.name,
+                name: job_details.name,
+                description: job_details.description,
+                field: job_details.field,
+                level: job_details.level
               });
-              age
+              job
               .save()
               .then(result => {
                 console.log(result);
                 if (result) {
                   const response = {
                     name: result.name,
+                    description: result.description,
+                    field: result.field,
                     _id: result._id
                   }
                   resolve(response);
@@ -32,19 +37,19 @@ exports.new = (gender_details) => {
         }
 
 
-//get a gender option
-exports.get = (gender_id) => {
+//get a job option
+exports.get = (job_id) => {
     return new Promise((resolve,reject) =>{
-      Gender.findById(gender_id)
-      .select("name")
+      Job.findById(job_id)
+      .select("name description field level")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Gender: doc,
+            Job: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/gender"
+              url: "http://localhost:3000/job"
             }
           });
         } else {
@@ -63,18 +68,21 @@ exports.get = (gender_id) => {
     })
   };
 
-//get all gender options
+//get all job options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Gender.find()
+    Job.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        gender_options: docs.map(doc => {
+        job_options: docs.map(doc => {
           return doc = {
             name: doc.name,
+            description: doc.description,
+            field: doc.field,
+            level: doc.level,
             _id: doc._id
           };
         })
@@ -89,14 +97,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a gender option
-exports.delete = (gender_id) => {
+//delete a job option
+exports.delete = (job_id) => {
     return new Promise((resolve,reject) => {
-      Age.deleteOne({ _id: gender_id })
+      Job.deleteOne({ _id: job_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Gender deleted"
+          message: "Job deleted"
         })
       })
       .catch(err => {
@@ -111,15 +119,21 @@ exports.delete = (gender_id) => {
   //update gender option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Age.findOneAndUpdate(
+      Job.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name}},
+            name:update_details.name,
+            description:update_details.description,
+            field:update_details.field,
+            level:update_details-level}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
+                  description: doc.description,
+                  field: doc.field,
+                  level: doc.level,
                   _id: doc._id
                 }
                 resolve(response);

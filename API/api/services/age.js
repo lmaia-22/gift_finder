@@ -99,7 +99,7 @@ exports.delete = (age_id) => {
       .exec()
       .then(result => {
         resolve({
-          message: "User deleted"
+          message: "Age deleted"
         })
       })
       .catch(err => {

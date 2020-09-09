@@ -13,6 +13,8 @@ const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
 const ageRoutes = require('./api/routes/age');
 const genderRoutes = require('./api/routes/gender');
+const jobRoutes = require('./api/routes/job');
+
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -43,6 +45,7 @@ const genderRoutes = require('./api/routes/gender');
     app.use("/users", userRoutes);
     app.use("/age", ageRoutes);
     app.use("/gender", genderRoutes);
+    app.use("/job", jobRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");
