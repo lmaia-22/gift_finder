@@ -5,7 +5,7 @@ const jobSchema = mongoose.Schema({
     name: { type: String, required: true },
     description:{ type: String, required: true },
     field: { type: String, required:true },
-    level: { type: String, required:true },
+    level: { type: String, required:true }
 });
 
-module.exports = mongoose.model('Job', jobmSchema);
+module.exports = mongoose.model('Job', jobSchema);
