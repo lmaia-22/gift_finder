@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
-var Like = require("../models/like");
+var Childcategory = require("../models/childcategory");
 
-//new like filter
-exports.new = (like_details) => {
+//new Childcategory - category filter
+exports.new = (childcategory_details) => {
     return new Promise((resolve,reject) =>{
-              const like = new Like({
+              const childcategory = new Childcategory({
                 _id: new mongoose.Types.ObjectId(),
-                name: like_details.name,
-                trust: like_details.trust,
+                name: childcategory_details.name,
+                category: childcategory.category
               });
-              like
+              Childcategory
               .save()
               .then(result => {
                 console.log(result);
                 if (result) {
                   const response = {
                     name: result.name,
-                    trust: result.trust,
+                    category:result.category,
                     _id: result._id
                   }
                   resolve(response);
@@ -34,19 +34,19 @@ exports.new = (like_details) => {
         }
 
 
-//get a like option
-exports.get = (like_id) => {
+//get a childcategory - category option
+exports.get = (childcategory_id) => {
     return new Promise((resolve,reject) =>{
-      Like.findById(like_id)
-      .select("name trust")
+      Childcategory.findById(childcategory_id)
+      .select("name category")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Like: doc,
+            Childcategory: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/like"
+              url: "http://localhost:3000/childcategory"
             }
           });
         } else {
@@ -65,19 +65,19 @@ exports.get = (like_id) => {
     })
   };
 
-//get all like options
+//get all childcategory - category options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Like.find()
+    Childcategory.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        like_options: docs.map(doc => {
+        childcategory_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            trust: doc.trust,
+            category: doc.category,
             _id: doc._id
           };
         })
@@ -92,14 +92,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a like option
-exports.delete = (like_id) => {
+//delete a childcategory - category option
+exports.delete = (childcategory_id) => {
     return new Promise((resolve,reject) => {
-      Like.deleteOne({ _id: like_id })
+      Childcategory.deleteOne({ _id: childcategory_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Like deleted"
+          message: "Childcategory deleted"
         })
       })
       .catch(err => {
@@ -111,19 +111,20 @@ exports.delete = (like_id) => {
     })
   }
   
-  //update a like option
+  //update a childcategory - category option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Like.findOneAndUpdate(
+        Childcategory.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name}},
+            name:update_details.name,
+            category:update_details.category}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  trust: doc.trust,
+                  category: doc.category,
                   _id: doc._id
                 }
                 resolve(response);

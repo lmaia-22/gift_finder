@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
-var Like = require("../models/like");
+var Childlike = require("../models/childlike");
 
-//new like filter
-exports.new = (like_details) => {
+//new childlike filter
+exports.new = (childlike_details) => {
     return new Promise((resolve,reject) =>{
-              const like = new Like({
+              const childlike = new Childlike({
                 _id: new mongoose.Types.ObjectId(),
-                name: like_details.name,
-                trust: like_details.trust,
+                name: childlike_details.name,
+                like: childlike_details.like,
+                subcategory: childlike_details.subcategory
               });
               like
               .save()
@@ -17,7 +18,8 @@ exports.new = (like_details) => {
                 if (result) {
                   const response = {
                     name: result.name,
-                    trust: result.trust,
+                    like: result.like,
+                    subcategory: result.childlike_details,
                     _id: result._id
                   }
                   resolve(response);
@@ -34,16 +36,16 @@ exports.new = (like_details) => {
         }
 
 
-//get a like option
-exports.get = (like_id) => {
+//get a childlike option
+exports.get = (childlike_id) => {
     return new Promise((resolve,reject) =>{
-      Like.findById(like_id)
-      .select("name trust")
+      Childlike.findById(childlike_id)
+      .select("name like subcategory")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Like: doc,
+            ChildLike: doc,
             request: {
               type: "GET",
               url: "http://localhost:3000/like"
@@ -65,19 +67,20 @@ exports.get = (like_id) => {
     })
   };
 
-//get all like options
+//get all childlike options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Like.find()
+    Childlike.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        like_options: docs.map(doc => {
+        childlike_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            trust: doc.trust,
+            like: doc.like,
+            subcategory: doc.subcategory,
             _id: doc._id
           };
         })
@@ -92,14 +95,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a like option
-exports.delete = (like_id) => {
+//delete a childlike option
+exports.delete = (childlike_id) => {
     return new Promise((resolve,reject) => {
-      Like.deleteOne({ _id: like_id })
+      Like.deleteOne({ _id: childlike_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Like deleted"
+          message: "ChildLike deleted"
         })
       })
       .catch(err => {
@@ -111,19 +114,22 @@ exports.delete = (like_id) => {
     })
   }
   
-  //update a like option
+  //update a childlike option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Like.findOneAndUpdate(
+      Childlike.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name}},
+            name:update_details.name,
+            like:update_details.like,
+            subcategory:update_details.subcategory }},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  trust: doc.trust,
+                  like: doc.like,
+                  subcategory: doc.subcategory,
                   _id: doc._id
                 }
                 resolve(response);

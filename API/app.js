@@ -15,8 +15,11 @@ const ageRoutes = require('./api/routes/age');
 const genderRoutes = require('./api/routes/gender');
 const jobRoutes = require('./api/routes/job');
 const likeRoutes = require('./api/routes/like');
+const childlikeRoutes = require('./api/routes/childlike');
 const typeRoutes = require('./api/routes/type');
-
+const categoryRoutes = require('./api/routes/category');
+const childcategoryRoutes = require('./api/routes/childcategory');
+const eventRoutes = require('./api/routes/event');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -50,6 +53,10 @@ const typeRoutes = require('./api/routes/type');
     app.use("/job", jobRoutes);
     app.use("/type", typeRoutes);
     app.use("/like", likeRoutes);
+    app.use("/childlike", childlikeRoutes);
+    app.use("/category", categoryRoutes);
+    app.use("/childcategory", childcategoryRoutes);
+    app.use("/event", eventRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");

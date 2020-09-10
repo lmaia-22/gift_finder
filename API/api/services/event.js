@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
-var Like = require("../models/like");
+var Event = require("../models/event");
 
-//new like filter
-exports.new = (like_details) => {
+//new Event filter
+exports.new = (event_details) => {
     return new Promise((resolve,reject) =>{
-              const like = new Like({
+              const event = new Event({
                 _id: new mongoose.Types.ObjectId(),
-                name: like_details.name,
-                trust: like_details.trust,
+                event: event_details.name,
+                description: event_details.description
               });
-              like
+              event
               .save()
               .then(result => {
                 console.log(result);
                 if (result) {
                   const response = {
                     name: result.name,
-                    trust: result.trust,
+                    description: result.description,
                     _id: result._id
                   }
                   resolve(response);
@@ -34,19 +34,19 @@ exports.new = (like_details) => {
         }
 
 
-//get a like option
-exports.get = (like_id) => {
+//get an event option
+exports.get = (event_id) => {
     return new Promise((resolve,reject) =>{
-      Like.findById(like_id)
-      .select("name trust")
+      Event.findById(event_id)
+      .select("name description")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Like: doc,
+            Event: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/like"
+              url: "http://localhost:3000/event"
             }
           });
         } else {
@@ -65,19 +65,19 @@ exports.get = (like_id) => {
     })
   };
 
-//get all like options
+//get all event options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Like.find()
+    Event.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        like_options: docs.map(doc => {
+        event_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            trust: doc.trust,
+            description: doc.description,
             _id: doc._id
           };
         })
@@ -92,14 +92,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a like option
-exports.delete = (like_id) => {
+//delete an event option
+exports.delete = (event_id) => {
     return new Promise((resolve,reject) => {
-      Like.deleteOne({ _id: like_id })
+      Event.deleteOne({ _id: event_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Like deleted"
+          message: "Event deleted"
         })
       })
       .catch(err => {
@@ -111,19 +111,20 @@ exports.delete = (like_id) => {
     })
   }
   
-  //update a like option
+  //update an event option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Like.findOneAndUpdate(
+      Event.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name}},
+            name:update_details.name,
+            description:update_details.description}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  trust: doc.trust,
+                  description: doc.description,
                   _id: doc._id
                 }
                 resolve(response);
