@@ -10,7 +10,9 @@ const productSchema = mongoose.Schema({
     type_of_gift: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
     event_of_gift: { type: [mongoose.Schema.Types.ObjectId], ref: 'Event', required: true },
     receiver_likes: { type: [mongoose.Schema.Types.ObjectId], ref: 'Like', required: true },
-    receiver_likes_of_likes: { type: [mongoose.Schema.Types.ObjectId], ref: 'Childlike', required: true },
+    trust_likes: { type: Number, min:0, max:10, required: true },
+    receiver_likes_of_childLikes: { type: [mongoose.Schema.Types.ObjectId], ref: 'Childlike', required: true },
+    trust_likes_of_childLikes: { type: Number, min:0, max:10, required: true },
     average_price: { type: Number, required:true }
 });
 

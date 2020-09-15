@@ -20,6 +20,7 @@ const typeRoutes = require('./api/routes/type');
 const categoryRoutes = require('./api/routes/category');
 const childcategoryRoutes = require('./api/routes/childcategory');
 const eventRoutes = require('./api/routes/event');
+const traitRoutes = require('./api/routes/trait');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -57,6 +58,7 @@ const eventRoutes = require('./api/routes/event');
     app.use("/category", categoryRoutes);
     app.use("/childcategory", childcategoryRoutes);
     app.use("/event", eventRoutes);
+    app.use("/trait", traitRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");
