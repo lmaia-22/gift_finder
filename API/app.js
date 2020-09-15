@@ -11,7 +11,17 @@ var corsOptions = {
 
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require('./api/routes/user');
-    
+const ageRoutes = require('./api/routes/age');
+const genderRoutes = require('./api/routes/gender');
+const jobRoutes = require('./api/routes/job');
+const likeRoutes = require('./api/routes/like');
+const childlikeRoutes = require('./api/routes/childlike');
+const typeRoutes = require('./api/routes/type');
+const categoryRoutes = require('./api/routes/category');
+const childcategoryRoutes = require('./api/routes/childcategory');
+const eventRoutes = require('./api/routes/event');
+const traitRoutes = require('./api/routes/trait');
+
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     
@@ -37,8 +47,18 @@ const userRoutes = require('./api/routes/user');
     }));
     
     // Routes which should handle requests
-    //app.use("/orders", orderRoutes);
+    app.use("/orders", orderRoutes);
     app.use("/users", userRoutes);
+    app.use("/age", ageRoutes);
+    app.use("/gender", genderRoutes);
+    app.use("/job", jobRoutes);
+    app.use("/type", typeRoutes);
+    app.use("/like", likeRoutes);
+    app.use("/childlike", childlikeRoutes);
+    app.use("/category", categoryRoutes);
+    app.use("/childcategory", childcategoryRoutes);
+    app.use("/event", eventRoutes);
+    app.use("/trait", traitRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");

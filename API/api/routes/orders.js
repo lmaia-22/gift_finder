@@ -22,7 +22,7 @@ router.get("/:orderId", vieworder, OrdersController.orders_get_order);
 
 router.put("/:orderId", editorder, OrdersController.orders_update_order);
 
-router.delete("/:orderId", checkAuth, OrdersController.orders_delete_order);
+router.delete("/:orderId", OrdersController.orders_delete_order);
 
 router.get("/user/:userId", vieworder, OrdersController.orders_get_order_by_user);
 
