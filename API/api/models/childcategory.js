@@ -6,4 +6,4 @@ const childcategorySchema = mongoose.Schema({
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true },
 });
 
-module.exports = mongoose.model('Category', childcategorySchema);
+module.exports = mongoose.model('ChildCategory', childcategorySchema);

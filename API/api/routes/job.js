@@ -12,6 +12,6 @@ router.get("/", checkAuth, JobController.job_all);
 
 router.put("/:jobID", checkAuth, JobController.job_update);
 
-router.delete("/:jobID", checkAuth, jobController.Job_delete);
+router.delete("/:jobID", checkAuth, JobController.job_delete);
 
 module.exports = router;

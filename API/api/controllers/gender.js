@@ -19,7 +19,7 @@ exports.gender_new = async (req, res) => {
 //list a gender option
 exports.gender_option = async (req, res) => {
     try{
-      let gender = await gender_service.get(req.params.ageID);
+      let gender = await gender_service.get(req.params.genderID);
       if ('error' in gender){
         res.status(gender['status']).json(gender)
       }else{
@@ -47,7 +47,7 @@ exports.gender_all = async (req, res) =>{
 //delete a gender option
 exports.gender_delete = async (req, res) => {
     try{
-      let delete_gender_option = await gender_service.delete(req.params.ageID);
+      let delete_gender_option = await gender_service.delete(req.params.genderID);
       if("error" in delete_gender_option){
         res.status(delete_gender_option['status']).json(delete_gender_option);
       }else{
@@ -59,7 +59,7 @@ exports.gender_delete = async (req, res) => {
   }
   
 //update a gender option
-exports.age_update = async (req, res) => {
+exports.gender_update = async (req, res) => {
     try{
       let update_gender  = await gender_service.update(req.params.genderID, req.body);
       if("error" in update_gender){

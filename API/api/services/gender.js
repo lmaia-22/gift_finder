@@ -9,7 +9,7 @@ exports.new = (gender_details) => {
                 _id: new mongoose.Types.ObjectId(),
                 name: gender_details.name,
               });
-              age
+              Gender
               .save()
               .then(result => {
                 console.log(result);
@@ -92,7 +92,7 @@ exports.get_all = () => {
 //delete a gender option
 exports.delete = (gender_id) => {
     return new Promise((resolve,reject) => {
-      Age.deleteOne({ _id: gender_id })
+      Gender.deleteOne({ _id: gender_id })
       .exec()
       .then(result => {
         resolve({
@@ -111,7 +111,7 @@ exports.delete = (gender_id) => {
   //update gender option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Age.findOneAndUpdate(
+      Gender.findOneAndUpdate(
         {_id: id},{
           $set:{
             name:update_details.name}},

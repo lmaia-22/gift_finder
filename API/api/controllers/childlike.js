@@ -1,4 +1,4 @@
-const childlikes_service = require("../services/childlikes");
+const childlikes_service = require("../services/childlike");
 
 const fatal_error_status ={'error': 'a fatal error occured, please contact admin for details'};
 
