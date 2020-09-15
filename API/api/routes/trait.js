@@ -4,14 +4,14 @@ const router = express.Router();
 var TraitController = require('../controllers/trait');
 var checkAuth = require('../middleware/check-auth');
 
-router.post("/", checkAuth, TraitController.trait_new);
+router.post("/", TraitController.trait_new);
 
-router.get("/:typeID", checkAuth, TraitController.trait_option);
+router.get("/:typeID", TraitController.trait_option);
 
-router.get("/", checkAuth, TraitController.trait_all);
+router.get("/", TraitController.trait_all);
 
-router.put("/:typeID", checkAuth, TraitController.trait_update);
+router.put("/:typeID", TraitController.trait_update);
 
-router.delete("/:typeID", checkAuth, TraitController.trait_delete);
+router.delete("/:typeID", TraitController.trait_delete);
 
 module.exports = router;

@@ -4,14 +4,14 @@ const router = express.Router();
 var childcategoryController = require('../controllers/childcategory');
 var checkAuth = require('../middleware/check-auth');
 
-router.post("/", checkAuth, childcategoryController.childcategory_new);
+router.post("/", childcategoryController.childcategory_new);
 
-router.get("/:childcategoryID", checkAuth, childcategoryController.childcategory_option);
+router.get("/:childcategoryID", childcategoryController.childcategory_option);
 
-router.get("/", checkAuth, childcategoryController.childcategory_all);
+router.get("/", childcategoryController.childcategory_all);
 
-router.put("/:childcategoryID", checkAuth, childcategoryController.category_update);
+router.put("/:childcategoryID", childcategoryController.category_update);
 
-router.delete("/:childcategoryID", checkAuth, childcategoryController.childcategory_delete);
+router.delete("/:childcategoryID", childcategoryController.childcategory_delete);
 
 module.exports = router;

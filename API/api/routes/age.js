@@ -4,14 +4,14 @@ const router = express.Router();
 var AgeController = require('../controllers/age');
 var checkAuth = require('../middleware/check-auth');
 
-router.post("/", checkAuth, AgeController.age_new);
+router.post("/", AgeController.age_new);
 
-router.get("/:ageID", checkAuth, AgeController.age_option);
+router.get("/:ageID", AgeController.age_option);
 
-router.get("/", checkAuth, AgeController.age_all);
+router.get("/",  AgeController.age_all);
 
-router.put("/:ageID", checkAuth, AgeController.age_update);
+router.put("/:ageID", AgeController.age_update);
 
-router.delete("/:ageID", checkAuth, AgeController.age_delete);
+router.delete("/:ageID", AgeController.age_delete);
 
 module.exports = router;

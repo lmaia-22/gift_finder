@@ -11,9 +11,9 @@ router.post("/login", UserController.user_login);
 
 router.put("/:userID", edituser, UserController.user_update);
 
-router.get("/:userID", checkAuth, UserController.user_profile);
+router.get("/:userID", UserController.user_profile);
 
-router.delete("/:userID", checkAuth, UserController.user_delete);
+router.delete("/:userID", UserController.user_delete);
 
 router.get("/", UserController.users_all);
 
