@@ -7,9 +7,8 @@ exports.new = (type_details) => {
     return new Promise((resolve,reject) =>{
               const type = new Type({
                 _id: new mongoose.Types.ObjectId(),
-                name: type_details.name,
-                description: type_details.description,
-              });
+                name: type_details.name
+                });
               type
               .save()
               .then(result => {
@@ -17,7 +16,6 @@ exports.new = (type_details) => {
                 if (result) {
                   const response = {
                     name: result.name,
-                    description: result.description,
                     _id: result._id
                   }
                   resolve(response);
@@ -43,7 +41,7 @@ exports.get = (type_id) => {
       .then(doc => {
         if (doc) {
           resolve({
-            Age: doc,
+            Type: doc,
             request: {
               type: "GET",
               url: "http://localhost:3000/type"
@@ -77,7 +75,6 @@ exports.get_all = () => {
         type_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            description: doc.description,
             _id: doc._id
           };
         })
@@ -117,14 +114,12 @@ exports.delete = (type_id) => {
       Type.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name,
-            description:update_details.description}},
+            name:update_details.name}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  description: doc.description,
                   _id: doc._id
                 }
                 resolve(response);

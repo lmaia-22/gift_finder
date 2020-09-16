@@ -19,7 +19,7 @@ exports.type_new = async (req, res) => {
 //list a type option
 exports.type_option = async (req, res) => {
     try{
-      let type = await type_service.get(req.params.jobID);
+      let type = await type_service.get(req.params.typeID);
       if ('error' in type){
         res.status(type['status']).json(type)
       }else{

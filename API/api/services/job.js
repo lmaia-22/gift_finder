@@ -8,9 +8,7 @@ exports.new = (job_details) => {
               const job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 name: job_details.name,
-                description: job_details.description,
-                field: job_details.field,
-                level: job_details.level
+                description: job_details.description
               });
               job
               .save()
@@ -20,7 +18,6 @@ exports.new = (job_details) => {
                   const response = {
                     name: result.name,
                     description: result.description,
-                    field: result.field,
                     _id: result._id
                   }
                   resolve(response);
@@ -81,8 +78,6 @@ exports.get_all = () => {
           return doc = {
             name: doc.name,
             description: doc.description,
-            field: doc.field,
-            level: doc.level,
             _id: doc._id
           };
         })
@@ -123,17 +118,13 @@ exports.delete = (job_id) => {
         {_id: id},{
           $set:{
             name:update_details.name,
-            description:update_details.description,
-            field:update_details.field,
-            level:update_details-level}},
+            description:update_details.description}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
                   description: doc.description,
-                  field: doc.field,
-                  level: doc.level,
                   _id: doc._id
                 }
                 resolve(response);
