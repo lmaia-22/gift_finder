@@ -46,7 +46,7 @@ exports.get = (age_id) => {
             Age: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/ages"
+              url: "http://localhost:3000/age"
             }
           });
         } else {

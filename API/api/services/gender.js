@@ -9,7 +9,7 @@ exports.new = (gender_details) => {
                 _id: new mongoose.Types.ObjectId(),
                 name: gender_details.name,
               });
-              Gender
+              gender
               .save()
               .then(result => {
                 console.log(result);
