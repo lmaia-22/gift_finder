@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
     },
     country: {type: String, required:true },
     password: { type: String, required:true },
-    role: { type: mongoose.Schema.Types.ObjectId, ref: 'Roles', required: true, default: 0 }
+    role: { type: mongoose.Schema.Types.ObjectId, ref: 'Roles', required: true }
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -8,14 +8,15 @@ const requestSchema = mongoose.Schema({
         last: { type: String, required: true}
     },
     amount_to_spend: { type:Number, required:false },
-    age_filter: {type: mongoose.Schema.Types.ObjectId, ref: 'Age', required: true },
-    gender_filter: {type: mongoose.Schema.Types.ObjectId, ref: 'Gender', required: true },
-    job_filter: {type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
-    type_of_gift: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
-    event_of_gift: { type: [mongoose.Schema.Types.ObjectId], ref: 'Event', required: true },
-    receiver_likes: { type: [mongoose.Schema.Types.ObjectId], ref: 'Like', required: true },
-    receiver_likes_of_likes: { type: [mongoose.Schema.Types.ObjectId], ref: 'Childlike', required: true },
-    product: {type: [mongoose.Schema.Types.ObjectId], ref: 'Product', required: true },
+    age: {type: mongoose.Schema.Types.ObjectId, ref: 'Age', required: true },
+    gender: {type: mongoose.Schema.Types.ObjectId, ref: 'Gender', required: true },
+    job: {type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
+    traits:[{
+        trait: {type: mongoose.Schema.Types.ObjectId, ref: 'Trait', required: true },
+        Percentage: { type: Number, required: true}
+    }],
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
+    event: { type: [mongoose.Schema.Types.ObjectId], ref: 'Event', required: true },
     location: {type: String ,required:true },
     timestamp: { type : Date, default: Date.now, required:true }
 });
