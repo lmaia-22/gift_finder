@@ -7,7 +7,7 @@ exports.new = (event_details) => {
     return new Promise((resolve,reject) =>{
               const event = new Event({
                 _id: new mongoose.Types.ObjectId(),
-                event: event_details.name,
+                name: event_details.name,
                 description: event_details.description
               });
               event

@@ -6,12 +6,12 @@ var checkAuth = require('../middleware/check-auth');
 
 router.post("/", TraitController.trait_new);
 
-router.get("/:typeID", TraitController.trait_option);
+router.get("/:traitID", TraitController.trait_option);
 
 router.get("/", TraitController.trait_all);
 
-router.put("/:typeID", TraitController.trait_update);
+router.put("/:traitID", TraitController.trait_update);
 
-router.delete("/:typeID", TraitController.trait_delete);
+router.delete("/:traitID", TraitController.trait_delete);
 
 module.exports = router;

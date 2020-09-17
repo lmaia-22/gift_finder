@@ -7,8 +7,7 @@ exports.new = (trait_details) => {
     return new Promise((resolve,reject) =>{
               const trait = new Trait({
                 _id: new mongoose.Types.ObjectId(),
-                name: trait_details.name,
-                description: trait_details.description,
+                name: trait_details.name
               });
               trait
               .save()
@@ -17,7 +16,6 @@ exports.new = (trait_details) => {
                 if (result) {
                   const response = {
                     name: result.name,
-                    description: result.description,
                     _id: result._id
                   }
                   resolve(response);
@@ -38,7 +36,7 @@ exports.new = (trait_details) => {
 exports.get = (trait_id) => {
     return new Promise((resolve,reject) =>{
       Trait.findById(trait_id)
-      .select("name description")
+      .select("name")
       .exec()
       .then(doc => {
         if (doc) {
@@ -77,7 +75,6 @@ exports.get_all = () => {
         trait_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            description: doc.description,
             _id: doc._id
           };
         })
@@ -117,14 +114,12 @@ exports.delete = (trait_id) => {
       Like.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name,
-            description: update_details.description}},
+            name:update_details.name}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  description: doc.description,
                   _id: doc._id
                 }
                 resolve(response);
