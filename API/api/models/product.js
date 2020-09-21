@@ -5,15 +5,25 @@ const productSchema = mongoose.Schema({
     name : { type: String, required: true },
     description: { type: String, required: true },
     filters:{
-        age: {type: [mongoose.Schema.Types.ObjectId], ref: 'Age', required: true },
-        gender: {type: [mongoose.Schema.Types.ObjectId], ref: 'Gender', required: true },
-        job: {type: [mongoose.Schema.Types.ObjectId], ref: 'Job', required: true },
+        age: [{
+            age_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Age', required: true }
+        }],
+        gender: [{
+            gender_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Gender', required: true  }
+        }],
+        job: [{
+            job_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
+        }],
         traits:[{
             trait: {type: mongoose.Schema.Types.ObjectId, ref: 'Trait', required: true },
             percentage: { type: Number, required: true}
         }],
-        type: { type: [mongoose.Schema.Types.ObjectId], ref: 'Type', required: true },
-        event: { type: [mongoose.Schema.Types.ObjectId], ref: 'Event', required: true },
+        type: [{ 
+            type_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
+        }],
+        event: [{ 
+            event_id: {type: mongoose.Schema.Types.ObjectId, ref: 'Event', required: true },
+        }],
         average_price: { 
             min: {type: Number, required:true },
             max: {type: Number, required:true }

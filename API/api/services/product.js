@@ -7,16 +7,15 @@ var Job = require("../models/job");
 var Trait = require("../models/trait");
 var Type = require("../models/type");
 var Event = require("../models/event");
-const job = require("../models/job");
-const trait = require("../models/trait");
-const { type } = require("os");
+const Job = require("../models/job");
+const Trait = require("../models/trait");
 
-//new like filter
+//new product 
 exports.new = (product_details) => {
     return new Promise((resolve,reject) =>{
         
         //Age filter
-        Age.findById(product_details.filters.age)
+        Age.findById(product_details.filters.age.age_id)
             .then(age => {
                 if (!age) {
                     resolve({
@@ -26,7 +25,7 @@ exports.new = (product_details) => {
                  }
 
         //Gender Filter
-        Gender.findById(product_details.filters.gender)
+        Gender.findById(product_details.filters.gender.gender_id)
             .then(gender => {
                 if (!gender) {
                     resolve({
@@ -36,7 +35,7 @@ exports.new = (product_details) => {
                 }
 
         //Job Filter
-        Job.findById(product_details.filters.job)
+        Job.findById(product_details.filters.job.job_id)
             .then(job => {
                 if (!job) {
                     resolve({
@@ -56,7 +55,7 @@ exports.new = (product_details) => {
                 }
 
         //Type Filter
-        Type.findById(product_details.filters.type)
+        Type.findById(product_details.filters.type.type_id)
             .then(type => {
                 if (!type) {
                     resolve({
@@ -66,7 +65,7 @@ exports.new = (product_details) => {
                 }
 
         //Event Filter
-        Event.findById(product_details.filters.event)
+        Event.findById(product_details.filters.event.event_id)
         .then(event => {
             if (!event) {
                 resolve({
@@ -103,15 +102,15 @@ exports.new = (product_details) => {
                     name: result.name,
                     description: result.description,
                     filters: [{
-                        age: result.filters.age,
-                        gender: result.filters.gender,
-                        job: result.filters.job,
+                        age: result.filters.age.age_id,
+                        gender: result.filters.gender.gender_id,
+                        job: result.filters.job.job_id,
                         traits: [{
                             trait: result.filters.traits.trait,
                             percentage: result.filters.traits.percentage
                         }],
-                        type: result.filters.type,
-                        event: result.filters.event,
+                        type: result.filters.type.type_id,
+                        event: result.filters.event.event_id,
                         average_price: {
                             min: result.filters.average_price.min,
                             max: result.filters.average_price.max,
