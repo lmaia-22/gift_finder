@@ -7,8 +7,6 @@ var Job = require("../models/job");
 var Trait = require("../models/trait");
 var Type = require("../models/type");
 var Event = require("../models/event");
-const Job = require("../models/job");
-const Trait = require("../models/trait");
 
 //new product 
 exports.new = (product_details) => {
