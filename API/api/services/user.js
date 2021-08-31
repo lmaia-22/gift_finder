@@ -91,9 +91,8 @@ exports.new = (user_details) => {
               name: user_details.name,
               email: user_details.email,
               password: hash,
-              address: user_details.address,
               role: user_details.role,
-              actions: user_details.actions,
+              country: user_details.country,
             });
             user
             .save()
@@ -102,9 +101,8 @@ exports.new = (user_details) => {
                 const response = {
                   name: result.name,
                   email: result.email,
-                  address: result.address,
                   role: result.role,
-                  actions: result.actions,
+                  country: result.country,
                   _id: result._id
                 }
                 resolve(response);

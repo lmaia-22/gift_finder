@@ -11,10 +11,8 @@ const requestSchema = mongoose.Schema({
     age: {type: mongoose.Schema.Types.ObjectId, ref: 'Age', required: true },
     gender: {type: mongoose.Schema.Types.ObjectId, ref: 'Gender', required: true },
     job: {type: mongoose.Schema.Types.ObjectId, ref: 'Job', required: true },
-    traits:[{
-        trait: {type: mongoose.Schema.Types.ObjectId, ref: 'Trait', required: true },
-        Percentage: { type: Number, required: true}
-    }],
+    trait: {type: mongoose.Schema.Types.ObjectId, ref: 'Trait', required: true },
+    like: {type: mongoose.Schema.Types.ObjectId, ref: 'Like', required: true },
     type: { type: mongoose.Schema.Types.ObjectId, ref: 'Type', required: true },
     event: { type: [mongoose.Schema.Types.ObjectId], ref: 'Event', required: true },
     location: {type: String ,required:true },

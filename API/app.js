@@ -22,6 +22,7 @@ const childcategoryRoutes = require('./api/routes/childcategory');
 const eventRoutes = require('./api/routes/event');
 const traitRoutes = require('./api/routes/trait');
 const productRoutes = require('./api/routes/product');
+const rolesRoutes = require('./api/routes/roles');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -61,6 +62,7 @@ const productRoutes = require('./api/routes/product');
     app.use("/event", eventRoutes);
     app.use("/trait", traitRoutes);
     app.use("/product", productRoutes);
+    app.use("/roles", rolesRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");

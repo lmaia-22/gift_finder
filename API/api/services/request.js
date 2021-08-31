@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
-var Like = require("../models/like");
+var Request = require("../models/request");
 
-//new like filter
-exports.new = (like_details) => {
+//new request filter
+exports.new = (request_details) => {
     return new Promise((resolve,reject) =>{
-              const like = new Like({
+              const request = new Request({
                 _id: new mongoose.Types.ObjectId(),
-                name: like_details.name,
-                category: like_details.category,
+                name: request_details.name,
+                description: request_details.description
               });
-              like
+              request
               .save()
               .then(result => {
                 console.log(result);
                 if (result) {
                   const response = {
                     name: result.name,
-                    category: result.category,
+                    description: result.description,
                     _id: result._id
                   }
                   resolve(response);
@@ -34,19 +34,19 @@ exports.new = (like_details) => {
         }
 
 
-//get a like option
-exports.get = (like_id) => {
+//get a request option
+exports.get = (request_id) => {
     return new Promise((resolve,reject) =>{
-      Like.findById(like_id)
-      .select("name category")
+      Request.findById(request_id)
+      .select("name description field level")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Like: doc,
+            Request: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/like"
+              url: "http://localhost:3000/request"
             }
           });
         } else {
@@ -65,19 +65,19 @@ exports.get = (like_id) => {
     })
   };
 
-//get all like options
+//get all request options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Like.find()
+    Request.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        like_options: docs.map(doc => {
+        request_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            category: doc.category,
+            description: doc.description,
             _id: doc._id
           };
         })
@@ -92,14 +92,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a like option
-exports.delete = (like_id) => {
+//delete a request option
+exports.delete = (request_id) => {
     return new Promise((resolve,reject) => {
-      Like.deleteOne({ _id: like_id })
+      Request.deleteOne({ _id: request_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Like deleted"
+          message: "request deleted"
         })
       })
       .catch(err => {
@@ -111,19 +111,20 @@ exports.delete = (like_id) => {
     })
   }
   
-  //update a like option
+  //update gender option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Like.findOneAndUpdate(
+      Request.findOneAndUpdate(
         {_id: id},{
           $set:{
-            name:update_details.name}},
+            name:update_details.name,
+            description:update_details.description}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  category: doc.category,
+                  description: doc.description,
                   _id: doc._id
                 }
                 resolve(response);

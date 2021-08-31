@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 
-var Like = require("../models/like");
+var Role = require("../models/role");
 
-//new like filter
-exports.new = (like_details) => {
+//new role filter
+exports.new = (role_details) => {
     return new Promise((resolve,reject) =>{
-              const like = new Like({
+              const role = new Role({
                 _id: new mongoose.Types.ObjectId(),
-                name: like_details.name,
-                category: like_details.category,
+                name: role_details.name,
+                rights: role_details.rights,
+                access: role_details.access,
               });
-              like
+              role
               .save()
               .then(result => {
                 console.log(result);
                 if (result) {
                   const response = {
                     name: result.name,
-                    category: result.category,
+                    rights: result.rights,
+                    access: result.access,
                     _id: result._id
                   }
                   resolve(response);
@@ -34,19 +36,19 @@ exports.new = (like_details) => {
         }
 
 
-//get a like option
-exports.get = (like_id) => {
+//get a role option
+exports.get = (role_id) => {
     return new Promise((resolve,reject) =>{
-      Like.findById(like_id)
-      .select("name category")
+      Role.findById(role_id)
+      .select("name rights access")
       .exec()
       .then(doc => {
         if (doc) {
           resolve({
-            Like: doc,
+            Role: doc,
             request: {
               type: "GET",
-              url: "http://localhost:3000/like"
+              url: "http://localhost:3000/roles"
             }
           });
         } else {
@@ -65,19 +67,20 @@ exports.get = (like_id) => {
     })
   };
 
-//get all like options
+//get all role options
 exports.get_all = () => {
   return new Promise((resolve,reject) =>{
-    Like.find()
+    Role.find()
     .select()
     .exec()
     .then(docs => {
       resolve({
         count: docs.length,
-        like_options: docs.map(doc => {
+        role_options: docs.map(doc => {
           return doc = {
             name: doc.name,
-            category: doc.category,
+            rights: doc.rights,
+            access: doc.access,
             _id: doc._id
           };
         })
@@ -92,14 +95,14 @@ exports.get_all = () => {
   })
 }
   
-//delete a like option
-exports.delete = (like_id) => {
+//delete a role option
+exports.delete = (role_id) => {
     return new Promise((resolve,reject) => {
-      Like.deleteOne({ _id: like_id })
+      Role.deleteOne({ _id: role_id })
       .exec()
       .then(result => {
         resolve({
-          message: "Like deleted"
+          message: "Role deleted"
         })
       })
       .catch(err => {
@@ -111,10 +114,10 @@ exports.delete = (like_id) => {
     })
   }
   
-  //update a like option
+  //update a role option
   exports.update = (id, update_details) => {
     return new Promise((resolve,reject) =>{
-      Like.findOneAndUpdate(
+      Role.findOneAndUpdate(
         {_id: id},{
           $set:{
             name:update_details.name}},
@@ -123,7 +126,8 @@ exports.delete = (like_id) => {
               if (doc) {
                 const response = {
                   name: doc.name,
-                  category: doc.category,
+                  rights: doc.rights,
+                  access: doc.access,
                   _id: doc._id
                 }
                 resolve(response);
