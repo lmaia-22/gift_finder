@@ -23,6 +23,7 @@ const eventRoutes = require('./api/routes/event');
 const traitRoutes = require('./api/routes/trait');
 const productRoutes = require('./api/routes/product');
 const rolesRoutes = require('./api/routes/roles');
+const requestRoutes = require('./api/routes/request');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -63,6 +64,7 @@ const rolesRoutes = require('./api/routes/roles');
     app.use("/trait", traitRoutes);
     app.use("/product", productRoutes);
     app.use("/roles", rolesRoutes);
+    app.use("/request", requestRoutes);
     
     app.use((req, res, next) => {
       const error = new Error("Not found");

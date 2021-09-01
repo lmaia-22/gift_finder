@@ -7,8 +7,18 @@ exports.new = (request_details) => {
     return new Promise((resolve,reject) =>{
               const request = new Request({
                 _id: new mongoose.Types.ObjectId(),
+                current_user: request_details.current_user,
                 name: request_details.name,
-                description: request_details.description
+                amount_to_spend: request_details.amount_to_spend,
+                age: request_details.age,
+                gender: request_details.gender,
+                job: request_details.job,
+                trait: request_details.trait,
+                like: request_details.like,
+                type: request_details.type,
+                event: request_details.event,
+                location: request_details.location,
+                timestamp: request_details.timestamp,
               });
               request
               .save()
@@ -16,8 +26,18 @@ exports.new = (request_details) => {
                 console.log(result);
                 if (result) {
                   const response = {
+                    current_user: result.current_user,
                     name: result.name,
-                    description: result.description,
+                    amount_to_spend: result.amount_to_spend,
+                    age: result.age,
+                    gender: result.gender,
+                    job: result.job,
+                    trait: result.trait,
+                    like: result.like,
+                    type: result.type,
+                    event: result.event,
+                    location: result.location,
+                    timestamp: result.timestamp,
                     _id: result._id
                   }
                   resolve(response);
@@ -38,7 +58,7 @@ exports.new = (request_details) => {
 exports.get = (request_id) => {
     return new Promise((resolve,reject) =>{
       Request.findById(request_id)
-      .select("name description field level")
+      .select("current_user name amount_to_spend age gender job trait like type event location timestamp")
       .exec()
       .then(doc => {
         if (doc) {
@@ -76,8 +96,18 @@ exports.get_all = () => {
         count: docs.length,
         request_options: docs.map(doc => {
           return doc = {
+            current_user: doc.current_user,
             name: doc.name,
-            description: doc.description,
+            amount_to_spend: doc.amount_to_spend,
+            age: doc.age,
+            gender: doc.gender,
+            job: doc.job,
+            trait: doc.trait,
+            like: doc.like,
+            type: doc.type,
+            event: doc.event,
+            location: doc.location,
+            timestamp: doc.timestamp,
             _id: doc._id
           };
         })
