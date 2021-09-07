@@ -14,6 +14,7 @@ function connect(){
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
                         useNewUrlParser: true,
+                        useCreateIndex: true
                     })
                     .then((res,err) => {
                         if(err){
@@ -31,6 +32,7 @@ function connect(){
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
                         useNewUrlParser: true,
+                        useCreateIndex: true
                     })
                     .then((res,err) => {
                         if(err){

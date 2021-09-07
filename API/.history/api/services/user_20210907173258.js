@@ -205,16 +205,18 @@ exports.login = (login_details) => {
         {_id: id},{
           $set:{
             name:update_details.name,
-            country:update_details.country,
-            role:update_details.role}},
+            address:update_details.address,
+            role:update_details.role,
+            actions:update_details.actions}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
                   email: doc.email,
-                  country: doc.country,
+                  address: doc.address,
                   role: doc.role,
+                  actions: doc.actions,
                   _id: doc._id
                 }
                 resolve(response);

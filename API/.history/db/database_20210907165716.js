@@ -13,7 +13,8 @@ function connect(){
                     process.env.MONGO_ATLAS_PW +
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
-                        useNewUrlParser: true,
+                        useCreateIndex: true,
+                        useUnifiedTopology: true,
                     })
                     .then((res,err) => {
                         if(err){
@@ -30,7 +31,8 @@ function connect(){
                     process.env.MONGO_ATLAS_PW +
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
-                        useNewUrlParser: true,
+                        useCreateIndex: true,
+                        useUnifiedTopology: true,
                     })
                     .then((res,err) => {
                         if(err){

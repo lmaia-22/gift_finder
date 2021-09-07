@@ -101,7 +101,6 @@ exports.new = (user_details) => {
               if (result) {
                 const response = {
                   name: result.name,
-                  username: result.username,
                   email: result.email,
                   role: result.role,
                   country: result.country,
@@ -148,7 +147,8 @@ exports.login = (login_details) => {
             {
               email: user[0].email,
               userId: user[0]._id,
-              role: user[0].role
+              role: user[0].role,
+              actions: user[0].actions
             },
             process.env.JWT_KEY,
             {
@@ -205,16 +205,18 @@ exports.login = (login_details) => {
         {_id: id},{
           $set:{
             name:update_details.name,
-            country:update_details.country,
-            role:update_details.role}},
+            address:update_details.address,
+            role:update_details.role,
+            actions:update_details.actions}},
             {new:true})
             .then(doc => {
               if (doc) {
                 const response = {
                   name: doc.name,
                   email: doc.email,
-                  country: doc.country,
+                  address: doc.address,
                   role: doc.role,
+                  actions: doc.actions,
                   _id: doc._id
                 }
                 resolve(response);

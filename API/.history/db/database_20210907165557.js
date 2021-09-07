@@ -14,6 +14,11 @@ function connect(){
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
                         useNewUrlParser: true,
+                        useFindAndModify: false,
+                        useCreateIndex: true,
+                        useUnifiedTopology: true,
+                        reconnectTries: 30,
+                        reconnectInterval: 500, // in ms
                     })
                     .then((res,err) => {
                         if(err){
@@ -31,6 +36,11 @@ function connect(){
                     "@db-giftfinder.swntv.azure.mongodb.net/giftfinder?retryWrites=true&w=majority",
                     {   
                         useNewUrlParser: true,
+                        useFindAndModify: false,
+                        useCreateIndex: true,
+                        useUnifiedTopology: true,
+                        reconnectTries: 30,
+                        reconnectInterval: 500, // in ms
                     })
                     .then((res,err) => {
                         if(err){
