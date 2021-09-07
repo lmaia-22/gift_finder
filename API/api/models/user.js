@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    name : { 
-        first: { type: String, required: true},
-        last: { type: String, required: true}
-    },
+    name:{ type: String, required:true },
+    username: {type: String, lowercase: true, unique: true, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
     email: {
         type: String, 
         required: true, 
