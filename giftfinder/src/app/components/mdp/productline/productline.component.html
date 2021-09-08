@@ -1,0 +1,143 @@
+<div class="container">
+    <ngb-tabset>
+        <ngb-tab title="View All">
+            <ng-template ngbTabContent>
+                <div class="mt-3">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Line Number</th>
+                            <th scope="col">active</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Daily Production Capacity</th>
+                            <th scope="col">Date Operation Finished</th>
+                            <th scope="col">Date Operation Started</th>
+                            <th scope="col">Machines</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr scope="row" id="table" *ngFor="let productline of productlines let i = index">
+                            <td  (click)="open(content, productline.id)">{{productline?.productionLineNumber}}</td>
+                            <td  (click)="open(content, productline.id)">
+                              <input class="form-check-input" type="radio" [checked]="productline?.active" disabled>
+                            </td>
+                            <td  (click)="open(content, productline.id)">{{ productline?.description }}</td>
+                            <td  (click)="open(content, productline.id)">{{ productline?.dailyProductionCapacity }}</td>
+                            <td  (click)="open(content, productline.id)">{{ productline?.dateOperationFinished }}</td>
+                            <td  (click)="open(content, productline.id)">{{ productline?.dateOperationStarted }}</td>
+                            <td>
+                            <span class="form-check" *ngFor="let id_machine of machines.description">
+                                {{getMachineDescription(machinesIds)}}
+                              </span>
+                          </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </ng-template>
+        </ngb-tab>  
+
+        <ngb-tab title="New Production Line">
+            <ng-template ngbTabContent>
+                <div class="mt-3">
+                    <form #f="ngForm" class="mt-3 text-center" id="myform">                  
+                        <div class="text-center">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <input type="text" name="desc" class="form-control text-center mt-2" [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" required> 
+                            </div>
+                            <label for="exampleFormControlInput1">Machines</label>
+                            <div class="form-check" *ngFor="let machine of machines">
+                                <input class="form-check-input" [disabled] = "!machine.statusOperational" (change)="addMachinesToList(machine.id, $event.target.checked)"name="{{ machine.description }}" type="checkbox" id="{{machine.id}}">
+                                <label class="form-check-label" for="{{machine.description}}">
+                                    <p *ngIf = !machine.statusOperational>{{machine.description}} - Disabled</p>
+                                    <p *ngIf = machine.statusOperational>{{machine.description}}</p>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Product Line Number</label>
+                                <input type="number" name="prodlinenumber" class="form-control text-center mt-2" [(ngModel)]="prodlinenumber" [ngModelOptions]="{standalone: true}" required> 
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Date Operation Started</label>
+                                <input type="datetime-local" name="dateOperS" class="form-control text-center mt-2" [(ngModel)]="dateOperS" [ngModelOptions]="{standalone: true}" required> 
+                            </div> 
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Date Operated Finished</label>
+                                <input type="datetime-local" name="dateOperF" class="form-control text-center mt-2" [(ngModel)]="dateOperF" [ngModelOptions]="{standalone: true}" required> 
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Daily Production Capacity</label>
+                                <input type="number" name="dailyProd" class="form-control text-center mt-2" [(ngModel)]="dailyProd" [ngModelOptions]="{standalone: true}" required> 
+                            </div>   
+                            <div class="form-check">
+                                <input class="form-check-input" name="active" value="true" type="checkbox" [(ngModel)]="ative" id="defaultCheck1" required>
+                                <label class="form-check-label" for="defaultCheck1">Active</label>
+                            </div>           
+                        </div>
+                            <button type="submit" class="btn btn-success w-50 mt-2" (click)="onSubmit(f)" >Submit</button>
+                      </form>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div> 
+
+<!----------------- Edit -------------------->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Product Line update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form #edit="ngForm" class="mt-3 text-center" id="myform">
+            <div class="text-center">
+                <div class="form-group">
+                    <label for="name">Description</label>
+                    <input type="text" name="desc" value="{{productline.description}}" class="form-control text-center mt-2" [(ngModel)]="productline.description" [ngModelOptions]="{standalone: true}" required> 
+                </div>
+                <div class="form-group">
+                    Machines selected<br>
+            <div class="form-check" *ngFor="let machine of machines">
+              {{editoperToView.includes(machine.id) ? machine.description : ''}}
+            </div>
+            <br>
+            Select new machines
+            <div class="form-check" *ngFor="let machine of machines">
+                <input class="form-check-input" [disabled] = "!machine.statusOperational" (change)="editMachinesToList(machine.id, $event.target.checked)" name="{{ machine.description }}" type="checkbox" id="{{machine.id}}">
+                <label class="form-check-label" for="{{machine.description}}">
+                    <p *ngIf = !machine.statusOperational>{{machine.description}} - Disabled</p>
+                    <p *ngIf = machine.statusOperational>{{machine.description}}</p>
+                </label>
+            </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Product Line Number</label>
+                    <input type="number" name="prodlinenumber" value="{{productline.productionLineNumber}}" class="form-control text-center mt-2" [(ngModel)]="productline.productionLineNumber" [ngModelOptions]="{standalone: true}" required> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Date Operation Started</label>
+                    <input type="datetime-local" name="dateOperS" value="{{productline.dateOperationStarted}}" class="form-control text-center mt-2" [(ngModel)]="productline.dateOperationStarted" [ngModelOptions]="{standalone: true}" required> 
+                </div> 
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Date Operated Finished</label>
+                    <input type="datetime-local" name="dateOperF" value="{{productline.dateOperationFinished}}" class="form-control text-center mt-2" [(ngModel)]="productline.dateOperationFinished" [ngModelOptions]="{standalone: true}" required> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Daily Production Capacity</label>
+                    <input type="number" name="dailyProd" value="{{productline.dailyProductionCapacity}}" class="form-control text-center mt-2" [(ngModel)]="productline.dailyProductionCapacity" [ngModelOptions]="{standalone: true}" required> 
+                </div>   
+                <div class="form-check">
+                    <input class="form-check-input" name="active" checked="{{productline.active}}" value="true" type="checkbox" [(ngModel)]="productline.active" id="defaultCheck1" required>
+                    <label class="form-check-label" for="defaultCheck1">Active</label>
+                </div>           
+            </div>
+            <button type="submit" class="btn btn-success w-50 mt-2" (click)="putProductionLine()">Submit</button>
+          </form>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click'); delete()">Delete</button>
+    </div>
+</ng-template>

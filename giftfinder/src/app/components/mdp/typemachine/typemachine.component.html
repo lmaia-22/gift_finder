@@ -1,0 +1,113 @@
+<div class="container">
+    <ngb-tabset>
+        <ngb-tab title="View All">
+            <ng-template ngbTabContent>
+                <div class="mt-3">
+                  <table class="table table-hover">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">N.º</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Operations</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr scope="row" id="table" *ngFor="let typemachine of typemachines; let i = index">
+                        <td (click)="open(content, typemachine.id)">{{ i+1 }}</td>
+                        <td (click)="open(content, typemachine.id)">{{ typemachine?.description }}</td>
+                        <td>
+                          <span class="form-check" *ngFor="let operationId of typemachine.operationsIds">
+                              {{getOperationDescription(operationId)}}
+                          </span>
+                      </td>
+                    </tbody>
+                  </table>
+                </div>
+            </ng-template>
+        </ngb-tab>  
+
+        <ngb-tab title="New Type Machine">
+            <ng-template ngbTabContent>
+                <div class="mt-3">
+                    <form #f="ngForm" class="mt-3 text-center" id="myform">                  
+                        <div class="text-center">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <input type="text" name="desc" class="form-control text-center mt-2" [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" required> 
+                            </div>
+                            <label for="exampleFormControlInput1">Operations</label>
+                            <div class="form-check" *ngFor="let operation of operations">
+                                <input class="form-check-input" (change)="addOperationsToList(operation.id, $event.target.checked)"name="{{ operation.description }}" type="checkbox" id="{{operation.id}}">
+                                <label class="form-check-label" for="{{operation.description}}">
+                                    {{operation.description}}
+                                </label>
+                            </div>
+                        </div>
+                            <button type="submit" class="btn btn-success w-50 mt-2" (click)="onSubmit(f)">Submit</button>
+                      </form>
+                </div>
+            </ng-template>
+        </ngb-tab>
+
+          <ngb-tab title="View Machines of Type Machine">
+            <ng-template ngbTabContent>
+                <div class="mt-3">
+                  <table class="table table-hover">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">N.º</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Machines</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr scope="row" id="table" *ngFor="let typemachine of typemachines; let i = index">
+                        <td (click)="open(content, typemachine.id)">{{ i+1 }}</td>
+                        <td>{{ typemachine?.description }}</td>
+                        <td>{{getMachineDescription(typemachine.id)}}
+                      </td>
+                    </tbody>
+                  </table>
+                </div>
+            </ng-template>
+        </ngb-tab>  
+
+    </ngb-tabset>
+</div> 
+
+
+<!----------------- Edit -------------------->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Type Machine update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #edit="ngForm" class="mt-3 text-center" id="myform">    
+      <div class="form-group">
+          <label for="name">Description</label>
+          <input type="text" name="editdesc" value="{{typemachine.description}}" class="form-control text-center mt-2" [(ngModel)]="typemachine.description" [ngModelOptions]="{standalone: true}" required> 
+      </div>
+      <div class="text-center">
+          Operations selected<br>
+            <div class="form-check" *ngFor="let operation of operations">
+              {{editoperToView.includes(operation.id) ? operation.description : ''}}
+            </div>
+            <br>
+            Select new operations
+            <div class="form-check" *ngFor="let operation of operations">
+                <input class="form-check-input" (change)="editOperationsToList(operation.id, $event.target.checked)" name="{{ operation.description }}" type="checkbox" id="{{operation.id}}">
+                <label class="form-check-label" for="{{operation.description}}">
+                    {{operation.description}}
+                </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-50 mt-2" (click)="putTypeMachine()">Submit</button>
+    </form>
+  </div>
+  <div class="modal-footer text-center">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click'); delete(operation.id)">Delete</button>
+  </div>
+</ng-template>

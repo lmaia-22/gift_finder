@@ -1,0 +1,130 @@
+<div class="container">
+        <ngb-tabset>
+          <ngb-tab title="View All">
+            <ng-template ngbTabContent>
+              <div class="mt-3">
+                <table class="table table-hover">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">N.º</th>
+                      <th scope="col">Type of Machine</th>
+                      <th scope="col">Brand</th>
+                      <th scope="col">Model</th>
+                      <th scope="col">Localization</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Inspection Date</th>
+                      <th scope="col">Status Operational</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr scope="row" id="table" *ngFor="let machine of machines let i = index" (click)="open(content, machine.id)">
+                      <td>{{ i+1 }}</td>
+                      <td>{{ type_desc[i] }}</td>
+                      <td>{{ machine?.brand }}</td>
+                      <td>{{ machine?.model }}</td>
+                      <td>{{ machine?.localization }}</td>
+                      <td>{{ machine?.description }}</td>
+                      <td>{{ machine?.inspectionDate }}</td>
+                      <td>
+                        <input class="form-check-input" type="radio" [checked]="machine?.statusOperational" disabled>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+          </ngb-tab> 
+        
+        
+          <ngb-tab title="New Machine">
+            <ng-template ngbTabContent>
+              <div class="mt-3">
+                  <form #f1="ngForm" class="mt-3 text-center" id="myform" (ngSubmit)="onSubmit(f)">
+                      <div class="text-center">
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">Type of Machine</label>
+                              <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="idType" [ngModelOptions]="{standalone: true}">
+                                  <option class="text-center" *ngFor="let typeofmachine of typeofmachines" value="{{ typeofmachine?.id }}" >{{ typeofmachine?.description }}</option>
+                              </select>
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">Brand</label>
+                              <input type="text" name="Brand" class="form-control text-center mt-2" [(ngModel)]="brand"> 
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">Model</label>
+                              <input type="text" name="Model" class="form-control text-center mt-2" [(ngModel)]="model"> 
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">Localization</label>
+                              <input type="text" name="Localization" class="form-control text-center mt-2" [(ngModel)]="localization"> 
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">Description</label>
+                              <input type="text" name="description" class="form-control text-center mt-2" [(ngModel)]="desc"> 
+                          </div>
+                          <div class="form-group">
+                              <label for="exampleFormControlInput1">InspectionDate</label>
+                              <input type="date" name="InspectionDate"  class="form-control text-center mt-2" [(ngModel)]="inspecDate" > 
+                          </div>
+                          <div class="form-check">
+                              <input class="form-check-input" name="StatusOperational" value="true" type="checkbox" [(ngModel)]="statusOper" id="defaultCheck1" required>
+                              <label class="form-check-label" for="defaultCheck1">StatusOperational</label>
+                          </div>              
+                      </div>
+                          <button type="submit" class="btn btn-success w-50 mt-2">Submit</button>
+                    </form>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div> 
+
+      
+<!----------------- Edit -------------------->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Machine update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form #edit="ngForm" class="mt-3 text-center" id="myform">
+               <div class="form-group">
+                <label for="prod_edit">Type of Machine</label>
+                <select class="form-control"  name="idTypeMachine" [(ngModel)]="machine.idTypeMachine" value="{{ machine.idTypeMachine }}">
+                    <option *ngFor="let typeofmachine of typeofmachines" value="{{ typeofmachine?.id }}" >{{ typeofmachine?.description }}</option>
+                  </select>
+               </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Brand</label>
+                    <input type="text" name="Brand" value="{{machine.brand}}" class="form-control text-center mt-2" [(ngModel)]="machine.brand"> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Model</label>
+                    <input type="text" name="Model" value="{{machine.model}}" class="form-control text-center mt-2" [(ngModel)]="machine.model"> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Localization</label>
+                    <input type="text" name="Localization" value="{{machine.localization}}" class="form-control text-center mt-2" [(ngModel)]="machine.localization"> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Description</label>
+                    <input type="text" name="description" value="{{machine.description}}" class="form-control text-center mt-2" [(ngModel)]="machine.description"> 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">InspectionDate</label>
+                    <input type="date" name="InspectionDate" value="{{machine.inspectionDate}}" class="form-control text-center mt-2" [(ngModel)]="machine.inspectionDate" > 
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="StatusOperational" value="{{machine.statusOperational}}" type="checkbox" [(ngModel)]="machine.statusOperational" id="defaultCheck1" required>
+                    <label class="form-check-label" for="defaultCheck1">StatusOperational</label>
+                </div>                    
+                <button type="submit" class="btn btn-success w-50 mt-2" (click)="putMachine()">Submit</button>
+          </form>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click'); deletemachine()">Delete</button>
+    </div>
+</ng-template>

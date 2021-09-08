@@ -1,0 +1,9 @@
+<div class="text-center">
+  <div *ngIf="role == 0" class="mt-5">
+    <a routerLink="/mdf" class="btn btn-primary w-50 text-center text-white mt-5"><i class="fa fa-ticket-alt mr-2"></i>MDF</a>
+  </div>
+    <a *ngIf="role == 0" routerLink="/mdp" class="btn btn-primary w-50 text-center text-white mt-5"><i class="fa fa-calendar-alt mr-2"></i>MDP</a>
+  <div class="mt-1">
+    <a routerLink="/orders" class="btn btn-primary w-50 text-center text-white mt-5"><i class="fa fa-box-alt mr-2"></i>Orders</a>
+  </div>
+</div>    

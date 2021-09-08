@@ -1,0 +1,124 @@
+<div class="mt-3">
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th *ngIf="role == 0" scope="col">N.º</th>
+        <th scope="col">Name</th>
+        <th *ngIf="role == 1" scope="col">Email</th>
+        <th *ngIf="role == 1" scope="col">Address</th>
+        <th *ngIf="role == 0" scope="col">Role</th>
+        <th *ngIf="role == 0" scope="col">Permissions</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="role == 0" >
+      <tr scope="row" id="table" *ngFor="let user of users let i = index">
+        <td (click)="openuser(content1, user?._id)">{{ i+1 }}</td>
+        <td *ngIf="role == 0" (click)="openuser(content1, user?._id)">{{ user?.name }}</td>
+        <td *ngIf="role == 1" (click)="openuser(content1, user?._id)">{{ user?.email }}</td>
+        <td *ngIf="role == 1" (click)="openuser(content1, user?._id)">{{ user?.address }}</td>
+        <td *ngIf="user?.role == 0" (click)="openuser(content1, user?._id)">Admin</td>
+        <td *ngIf="user?.role == 1" (click)="openuser(content1, user?._id)">Client</td>
+        <td>
+          <button type="button" class="btn btn-primary text-center" (click)="actions1(content2, user?._id)">Edit</button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="role == 1">
+      <tr scope="row" id="table" (click)="openuser(content1, usr._id)">
+        <td >{{ usr.name }}</td>
+        <td >{{ usr.email }}</td>
+        <td >{{ usr.address }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  
+<!----------------- Edit USER -------------------->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form #edit="ngForm" class="mt-3 text-center" id="myform">
+              <div class="form-group">
+                  <label for="exampleFormControlInput1">Name</label>
+                  <input type="text" name="name" value="{{this.user.name}}" class="form-control text-center mt-2" [(ngModel)]="name">
+              </div>
+              <div class="form-group">
+                  <label for="exampleFormControlInput1">Address</label>
+                  <input type="text" name="address" value="{{this.user.address}}" class="form-control text-center mt-2" [(ngModel)]="address">
+              </div>
+              <div *ngIf="role == 0" class="form-group">
+                <label for="exampleFormControlInput1">Role</label>
+                  <select class="form-control" [(ngModel)]="role" value="{{ this.user.role.toString() }}">
+                    <option value="0">Admin</option>
+                    <option value="1">Client</option>
+                  </select>
+              </div>
+              <button type="submit" class="btn btn-success w-50 mt-2" (click)="putUser(edit, user._id)">Submit</button>
+        </form>
+  </div>
+  <div class="modal-footer text-center">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click');">Exit</button>
+  </div>
+</ng-template>
+
+<!------------------------------------------ Edit actions ------------------------>
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">User Permissions</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form #editactions="ngForm" class="mt-3 text-center" id="myform1">
+              <div class="form-group">
+                  <label for="exampleFormControlInput1">Name</label>
+                  <input type="text" name="name" value="{{this.user.name}}" class="form-control text-center mt-2" [(ngModel)]="name" disabled>
+              </div>
+              <div class="form-group">
+                  <label for="exampleFormControlInput1">Address</label>
+                  <input type="text" name="address" value="{{this.user.address}}" class="form-control text-center mt-2" [(ngModel)]="address" disbaled>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput1">Role</label>
+                <select name="roleedit" class="form-control" [(ngModel)]="roleedit" value="{{ this.user.role }}">
+                  <option value="0">Admin</option>
+                  <option value="1">Client</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlInput1">Permissions</label>
+                  <table class="table table-hover">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Permission</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Access</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr scope="row" id="table" *ngFor="let user of user.actions[0] | keyvalue let i = index">
+                      <td>{{i+1}}</td>
+                      <td>{{user.key}}</td>
+                      <td>
+                        <input class="form-check-input" name="action" value="true" [checked]="(user.value === 1)" type="checkbox" (click)="putActionsList(user.key, user.value)" required>
+                      </td>
+                      <!-- <td *ngIf="user.value === 1">True</td>
+                      <td *ngIf="user.value === 0">False</td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button type="submit" class="btn btn-success w-50 mt-2" (click)="putActions(editactions, user._id)">Submit</button>
+        </form>
+  </div>
+  <div class="modal-footer text-center">
+    <button type="button" class="btn btn-danger" (click)="modal.close('Save click');">Exit</button>
+  </div>
+</ng-template>
