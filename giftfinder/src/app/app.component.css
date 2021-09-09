@@ -1,0 +1,7 @@
+.container{
+    background-image: url('../assets/img/bk.gif');
+    background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
