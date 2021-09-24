@@ -3,12 +3,10 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-}
-
-body {
 	min-height: 100vh;
 	background-color: #e5e5e5;
 	font-family: 'Roboto', sans-serif;
+	font-size:larger;
 }
 
 .app-header {
@@ -17,7 +15,7 @@ body {
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 2;
+	z-index: 6;
 	box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
 }
 
