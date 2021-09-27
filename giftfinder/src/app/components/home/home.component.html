@@ -1,1 +1,18 @@
-<p>home works!</p>
+<Particles id="tsparticles" [options]="options"></Particles>
+    <mat-card [@openClose]="isOpen ? 'open' : 'closed'" class="box bg-light">
+        <mat-card-content class="text-center">
+            <h2>Sometimes we need help in connecting the dots!</h2>
+            <section class="example-section">
+                <mat-progress-bar
+                    class="example-margin"
+                    [color]="color"
+                    [mode]="mode"
+                    [value]="value"
+                    [bufferValue]="bufferValue">
+                </mat-progress-bar>
+            </section>
+        </mat-card-content>
+        <mat-card-actions class="text-center">
+        <button type="button" href="#" mat-flat-button class="mx-auto" color="accent">Connect the ...</button>  
+        </mat-card-actions>
+      </mat-card>

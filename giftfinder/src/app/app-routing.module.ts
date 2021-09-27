@@ -8,10 +8,11 @@ import { SearchComponent } from './components/search/search.component';
 import { AuthenticationGuard } from "../app/services/authentication/authentication.guard";
 
 const routes: Routes = [
-  { path: '', component: SearchComponent },
+  { path: '', component: HomeComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'search', component: SearchComponent },
 ];
 
 @NgModule({
